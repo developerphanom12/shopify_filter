@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <!-- Your head content -->
+      <style>
+        .collection-section {
+          margin-bottom: 20px;
+        }
+        
+        .collectionContainer {
+          padding: 10px;
+          margin-bottom: 10px;
+        }
+    
+        .collectionContainer p {
+          margin: 5px 0;
+        }
+      </style>
+    </head>
+    <body>
+    
+    <div class="collection-section">
+      <div class="slider"></div>
+    </div>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" async></script>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+        try {
+          const response = await fetch('/apps/proxies/collections');
+          const data = await response.json();
+          displayCollections(data);
+        } catch (error) {
+          console.error('Error fetching collections data:', error);
+        }
+      });
+    
+      function displayCollections(data) {
+        const slider = document.querySelector('.slider');
+        if (slider) {
+          slider.innerHTML = ''; 
+          data.collections.edges.forEach(collectionEdge => {
+            // Generate HTML content for each collection
+            const collectionNode = collectionEdge.node;
+            const slideContent = `
+              <div class="collectionContainer">
+                <h2>${collectionNode.title}</h2>
+                <p>Number of Products: ${collectionNode.productsCount}</p>
+              </div>
+            `;
+            // Append slide to the slider
+            slider.innerHTML += slideContent;
+          });
+        } else {
+          console.error('Slider element not found.');
+        }
+      }
+    </script>
+    
+    </body>
+    </html>
+    

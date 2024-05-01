@@ -1,0 +1,30 @@
+{
+  "name": "filterproducts",
+  "version": "1.0.0",
+  "main": "web/index.js",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "shopify": "shopify",
+    "build": "shopify app build",
+    "dev": "shopify app dev",
+    "info": "shopify app info",
+    "generate": "shopify app generate",
+    "deploy": "shopify app deploy"
+  },
+  "dependencies": {
+    "@shopify/app": "3.58.2",
+    "@shopify/cli": "3.58.2",
+    "@shopify/shopify-api": "^7.7.0",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "mysql": "^2.18.1"
+  },
+  "author": "abc",
+  "private": true,
+  "workspaces": [
+    "extensions/*",
+    "web",
+    "web/frontend"
+  ]
+}

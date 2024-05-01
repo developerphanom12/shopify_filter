@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Product Search</title>
+      <style>
+          /* Your CSS styles here */
+      </style>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+  </head>
+  <body>
+  
+  <div class="product-section">
+      <div class="slider"></div>
+  </div>
+  
+  <div class="search-section">
+      <input type="text" id="searchInput" placeholder="Enter product title">
+      <button  class="btnbutton" id="searchButton">Search</button>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" defer></script>
+  
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const searchButton = document.getElementById('searchButton');
+  
+          searchButton.addEventListener('click', async function () {
+              const searchInput = document.getElementById('searchInput').value;
+              try {
+                  const data = await fetchProductData(searchInput);
+                  displayProducts(data);
+              } catch (error) {
+                  console.error('Error fetching product data:', error);
+              }
+          });
+  
+          async function fetchProductData(title) {
+              const response = await fetch(`/apps/proxies/search?title=${encodeURIComponent(title)}`);
+              return await response.json();
+          }
+  
+          function displayProducts(data) {
+              const productInfo = document.querySelector('.product-section');
+              productInfo.innerHTML = '';
+  
+              if (data.products.length > 0) {
+                  data.products.forEach((product) => {
+                      const productContainer = document.createElement('div');
+                      productContainer.classList.add('productContainer');
+  
+                      const titleElement = document.createElement('h2');
+                      titleElement.textContent = product.node.title;
+                      productContainer.appendChild(titleElement);
+  
+                      const sliderContainer = document.createElement('div');
+                      sliderContainer.classList.add('slider');
+  
+                      product.node.images.edges.forEach((variantEdge) => {
+                        const img = document.createElement('img');
+                        img.src = variantEdge.node.src;
+                        sliderContainer.appendChild(img);
+                    });
+                    
+  
+                      productContainer.appendChild(sliderContainer);
+                      productInfo.appendChild(productContainer);
+  
+                      $(sliderContainer).slick();
+                  });
+              } else {
+                  const noDataMessage = document.createElement('p');
+                  noDataMessage.textContent = 'No products found for the entered title.';
+                  productInfo.appendChild(noDataMessage);
+              }
+          }
+      });
+  
+  </script>
+  </body>
+  </html>
+  

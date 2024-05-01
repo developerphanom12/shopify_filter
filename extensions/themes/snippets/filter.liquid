@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+            .product-section {
+              margin-bottom: 20px;
+            }
+
+            .productContainer {
+              padding: 10px;
+              margin-bottom: 10px;
+            }
+
+            .productContainer img {
+              width: 73px;
+              height: 263px;
+              margin-bottom: 10px;
+            }
+
+            .sizesContainer {
+              margin-top: 20px;
+            }
+
+            .sizesHeading {
+              color: #abff00;
+              font-size: 24px;
+              font-weight: bold;
+              margin-bottom: 12px;
+            }
+
+            .sizesList {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+            }
+
+            .sizeElement {
+              padding: 8px 12px;
+              background-color: #f0f0f0;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+            }
+
+            .sizeElement:hover {
+              background-color: #8f8f8f;
+            }
+            .deselected {
+              color: black; /* Change color to black for deselected elements */
+            }
+            .priceList {
+              list-style: none;
+            }
+
+            .priceContainer {
+              list-style: none;
+            }
+
+            .priceList {
+              display: flex;
+              gap: 28px;
+              margin:0px
+              list-style: none;
+            }
+
+            .priceOption:hover {
+              background-color: #8f8f8f;
+            }
+            .selectedPriceOption {
+              color: red;
+            }
+            .selectedSize {
+              color: red;
+            }
+
+            .priceOption{
+              cursor:pointer
+            }
+
+            .colorElement {
+              padding: 8px 12px;
+              background-color: #f0f0f0;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+            }
+
+            .colorList {
+              display: flex;
+            }
+
+            .colorElement:hover {
+              background-color: #8f8f8f;
+            }
+
+            .selectedColor{
+            color:red
+            }
+            img.slick-slide.slick-cloned {
+              object-fit: contain;
+          }
+
+            .slider {
+              width: 80%;
+              margin: auto;
+              margin-top: 20px;
+          }
+
+          .main-image {
+              max-height: 400px;
+              width: auto;
+              margin: auto;
+          }
+
+          .thumbnail {
+              width: 80px;
+              height: auto;
+              margin: 5px;
+              cursor: pointer;
+          }
+          .thumbnailImg {
+           width:12px;
+           height:12px
+           cursor: pointer;
+          }
+
+        .thumbnailImg img {
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
+    >
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" defer></script>
+
+    <div class="product-section">
+      <div class="slider"></div>
+    </div>
+    <div class="sizesContainer">
+      <h2 class="sizesHeading">Available Sizes</h2>
+      <div class="sizesList" id="sizesList"></div>
+      <h2 class="sizesHeading">Available Colors</h2>
+      <div class="colorList" id="colorsList"></div>
+
+      <div class="priceContainer">
+        <div class="priceHeading">Price</div>
+        <ul class="priceList">
+          <li class="priceOption" data-min="0" data-max="300">0 - 10</li>
+          <li class="priceOption" data-min="301" data-max="600">301 - 600</li>
+          <li class="priceOption" data-min="601" data-max="1000">601 - 1000</li>
+          <li class="priceOption" data-min="1001" data-max="99999">1001+</li>
+        </ul>
+      </div>
+
+      <div id="selectedOptions"></div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', async function () {
+        try {
+          const data = await fetchProductData();
+          displayProducts(data);
+          const defaultSize = 'S'; // Change to your default size
+          await fetchAndDisplayProducts(defaultSize, null);
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+      });
+
+      async function fetchProductData() {
+        const response = await fetch('/apps/example/products');
+        return await response.json();
+        console.log('bdfhdfhdf', response);
+      }
+
+      document.addEventListener('DOMContentLoaded', async function () {
+        try {
+          const data = await fetchProductData();
+          displayProducts(data);
+          const defaultSize = 'S'; // Change to your default size
+          await fetchAndDisplayProducts(defaultSize, null);
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+        }
+      });
+
+      async function fetchProductData() {
+        const response = await fetch('/apps/example/products');
+        return await response.json();
+      }
+
+      async function fetchAndDisplayProducts(size, color) {
+        const productInfo = document.querySelector('.product-section');
+        if (!productInfo) {
+          console.error('Product info element not found.');
+          return;
+        }
+
+        try {
+          const sizeParam = size ? `sizes=${size}` : '';
+          const colorParam = color ? `&colors=${color}` : '';
+          const priceOption = document.querySelector('.selectedPriceOption');
+          let minPrice = null;
+          let maxPrice = null;
+          if (priceOption) {
+            minPrice = priceOption.dataset.min;
+            maxPrice = priceOption.dataset.max;
+          }
+          const priceParam = minPrice && maxPrice ? `&minPrice=${minPrice}&maxPrice=${maxPrice}` : '';
+
+          const response = await fetch(`/apps/example/collections?${sizeParam}${colorParam}${priceParam}`);
+          const data = await response.json();
+          console.log('data', data);
+          productInfo.innerHTML = '';
+
+          if (data.products.length > 0) {
+            data.products.forEach((product) => {
+              const productContainer = document.createElement('div');
+              productContainer.classList.add('productContainer');
+
+              const sliderContainer = document.createElement('div');
+              sliderContainer.classList.add('slider');
+
+              product.variants.forEach((variant) => {
+                if (variant.image) {
+                  const img = document.createElement('img');
+                  img.src = variant.image;
+                  sliderContainer.appendChild(img);
+                }
+              });
+
+              // Initialize slick slider for the main images
+              $(sliderContainer).slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                asNavFor: '.thumbnails',
+                arrows: false,
+                fade: true,
+                adaptiveHeight: true,
+              });
+
+              const thumbnailContainer = document.createElement('div');
+              thumbnailContainer.classList.add('thumbnails');
+
+              product.variants.forEach((variant) => {
+                if (variant.image) {
+                  const thumbnailImg = document.createElement('img');
+                  thumbnailImg.src = variant.image;
+                  thumbnailImg.classList.add('thumbnail');
+                  thumbnailImg.addEventListener('click', () => {
+                    $(sliderContainer).slick('slickGoTo', $(thumbnailImg).index());
+                  });
+                  thumbnailContainer.appendChild(thumbnailImg);
+                }
+              });
+
+              // Initialize slick slider for the thumbnails
+              $(thumbnailContainer).slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                asNavFor: '.slider',
+                dots: false,
+                centerMode: true,
+                focusOnSelect: true,
+              });
+
+              productContainer.appendChild(sliderContainer);
+              productContainer.appendChild(thumbnailContainer);
+
+              const titleElement = document.createElement('h2');
+              titleElement.textContent = product.title;
+              productContainer.appendChild(titleElement);
+
+              const priceElement = document.createElement('h2');
+              priceElement.textContent = product.variants[0].price; // Displaying the price of the first variant
+              productContainer.appendChild(priceElement);
+
+              productInfo.appendChild(productContainer);
+            });
+          } else {
+            const noDataMessage = document.createElement('p');
+            noDataMessage.textContent = 'No products found for the selected size and color.';
+            productInfo.appendChild(noDataMessage);
+          }
+        } catch (error) {
+          productInfo.innerHTML = '<p>An error occurred while fetching product data.</p>';
+          console.error('Error fetching product data:', error);
+        }
+      }
+
+      const sizesContainer = document.getElementById('sizesList');
+      const colorsContainer = document.getElementById('colorsList');
+      const priceOptions = document.querySelectorAll('.priceOption');
+
+      let selectedSize = null;
+      let selectedColor = null;
+      let selectedPriceOption = null;
+
+      function updateSelection(element, container, fetchData) {
+        const selectedClass = 'selected';
+        const deselectedClass = 'deselected';
+
+        if (element.classList.contains(selectedClass)) {
+          element.classList.remove(selectedClass);
+          element.classList.add(deselectedClass);
+
+          if (container.id === 'sizesList') {
+            selectedSize = null;
+          } else if (container.id === 'colorsList') {
+            selectedColor = null;
+          }
+        } else {
+          const selectedElement = container.querySelector(`.${selectedClass}`);
+
+          if (selectedElement) {
+            selectedElement.classList.remove(selectedClass);
+            selectedElement.classList.add(deselectedClass);
+          }
+
+          element.classList.add(selectedClass);
+          element.classList.remove(deselectedClass);
+
+          if (container.id === 'sizesList') {
+            selectedSize = element.textContent;
+          } else if (container.id === 'colorsList') {
+            selectedColor = element.textContent;
+          }
+        }
+
+        fetchData(selectedSize, selectedColor);
+      }
+
+      function updateSelectedOptions() {
+        const selectedOptionsDiv = document.getElementById('selectedOptions');
+        if (!selectedOptionsDiv) return;
+
+        let selectedOptionsText = 'Selected options: ';
+        if (selectedSize) {
+          selectedOptionsText += `Size: ${selectedSize}, `;
+        }
+        if (selectedColor) {
+          selectedOptionsText += `Color: ${selectedColor}, `;
+        }
+        if (selectedPriceOption) {
+          const minPrice = selectedPriceOption.dataset.min;
+          const maxPrice = selectedPriceOption.dataset.max;
+          selectedOptionsText += `Price: ${minPrice} - ${maxPrice}, `;
+        }
+
+        selectedOptionsText = selectedOptionsText.slice(0, -2);
+
+        selectedOptionsDiv.textContent = selectedOptionsText;
+      }
+
+      sizesContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('sizeElement')) {
+          updateSelection(event.target, sizesContainer, fetchAndDisplayProducts);
+        }
+      });
+
+      colorsContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('colorElement')) {
+          updateSelection(event.target, colorsContainer, fetchAndDisplayProducts);
+        }
+      });
+
+      priceOptions.forEach((option) => {
+        option.addEventListener('click', async () => {
+          const selectedOption = document.querySelector('.selectedPriceOption');
+          if (selectedOption) {
+            selectedOption.classList.remove('selectedPriceOption');
+          }
+          option.classList.add('selectedPriceOption');
+          selectedPriceOption = option;
+          const size = selectedSize;
+          const color = selectedColor;
+          await fetchAndDisplayProducts(size, color);
+        });
+      });
+      const clearColorButton = document.getElementById('clearColorButton');
+      if (clearColorButton) {
+        clearColorButton.addEventListener('click', async () => {
+          const selectedColorElement = document.querySelector('.selectedColor');
+          if (selectedColorElement) {
+            selectedColorElement.classList.remove('selectedColor');
+            selectedColorElement.classList.add('deselected'); // Add deselected class
+          }
+          selectedColor = null;
+          const size = selectedSize;
+          await fetchAndDisplayProducts(size, null);
+        });
+      }
+
+      function displayProducts(data) {
+        sizesContainer.innerHTML = '';
+        colorsContainer.innerHTML = '';
+
+        if (!data || !data.products || data.products.edges.length === 0) {
+          const noDataMessage = document.createElement('p');
+          noDataMessage.textContent = 'No data available.';
+          sizesContainer.appendChild(noDataMessage);
+          return;
+        }
+
+        const sizesSet = new Set();
+        const colorsSet = new Set();
+
+        data.products.edges.forEach((productEdge) => {
+          productEdge.node.variants.edges.forEach((variantEdge) => {
+            variantEdge.node.selectedOptions.forEach((option) => {
+              if (option.name.toLowerCase() === 'size') {
+                sizesSet.add(option.value.toUpperCase());
+              }
+              if (option.name.toLowerCase() === 'color') {
+                colorsSet.add(option.value.toUpperCase());
+              }
+            });
+          });
+        });
+
+        const sizesArray = Array.from(sizesSet).sort();
+        const colorsArray = Array.from(colorsSet).sort();
+
+        if (sizesArray.length > 0) {
+          sizesArray.forEach((size) => {
+            const sizeElement = document.createElement('div');
+            sizeElement.classList.add('sizeElement');
+            sizeElement.textContent = size;
+            sizeElement.addEventListener('click', async () => {
+              const selectedSize = document.querySelector('.selectedSize');
+              if (selectedSize) {
+                selectedSize.classList.remove('selectedSize');
+                selectedSize.classList.add('deselected'); // Add deselected class
+              }
+              sizeElement.classList.add('selectedSize');
+              sizeElement.classList.remove('deselected'); // Remove deselected class
+              const selectedColor = document.querySelector('.selectedColor');
+              const color = selectedColor ? selectedColor.textContent : null;
+              await fetchAndDisplayProducts(size, color);
+            });
+            sizesContainer.appendChild(sizeElement);
+          });
+        } else {
+          const noSizesMessage = document.createElement('p');
+          noSizesMessage.textContent = 'No sizes available.';
+          sizesContainer.appendChild(noSizesMessage);
+        }
+
+        if (colorsArray.length > 0) {
+          colorsArray.forEach((color) => {
+            const colorElement = document.createElement('div');
+            colorElement.classList.add('colorElement');
+            colorElement.textContent = color;
+            colorElement.addEventListener('click', async () => {
+              const selectedColor = document.querySelector('.selectedColor');
+              if (selectedColor) {
+                selectedColor.classList.remove('selectedColor');
+                selectedColor.classList.add('deselected'); // Add deselected class
+              }
+              colorElement.classList.add('selectedColor');
+              colorElement.classList.remove('deselected'); // Remove deselected class
+              const selectedSize = document.querySelector('.selectedSize');
+              const size = selectedSize ? selectedSize.textContent : null;
+              await fetchAndDisplayProducts(size, color);
+            });
+            colorsContainer.appendChild(colorElement);
+          });
+        } else {
+          const noColorsMessage = document.createElement('p');
+          noColorsMessage.textContent = 'No colors available.';
+          colorsContainer.appendChild(noColorsMessage);
+        }
+      }
+    </script>
+  </body>
+</html>
