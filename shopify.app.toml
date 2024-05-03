@@ -3,7 +3,7 @@
 client_id = "cda589aa1d4db0408131cad372bcde7d"
 name = "exampleone"
 handle = "exampleone-2"
-application_url = "https://norton-couple-anchor-scholarship.trycloudflare.com"
+application_url = "https://radius-raid-ruby-hughes.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_product_listings,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://norton-couple-anchor-scholarship.trycloudflare.com/auth/callback",
-  "https://norton-couple-anchor-scholarship.trycloudflare.com/auth/shopify/callback",
-  "https://norton-couple-anchor-scholarship.trycloudflare.com/api/auth/callback"
+  "https://radius-raid-ruby-hughes.trycloudflare.com/auth/callback",
+  "https://radius-raid-ruby-hughes.trycloudflare.com/auth/shopify/callback",
+  "https://radius-raid-ruby-hughes.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
