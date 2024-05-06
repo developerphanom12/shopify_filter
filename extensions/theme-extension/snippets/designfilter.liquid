@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+          .slider {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid transparent;
+          }
+
+         
+          .selectElement {
+            display: none; 
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+          }
+
+          
+          .selectElement.visible {
+            display: block;
+          }
+
+         
+          .sizeElement,
+          .colorElement {
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+          }
+
+          .sizesContainer h2.sizesHeading {
+            font-size: 14px;
+            margin: 7px 0px;
+            font-weight: 600;
+        }
+          
+
+          .productContainer {
+            position:relative;
+            padding: 10px;
+            background-color: #fff;
+            
+            width: 300px;
+            height: 430px;
+            margin: 0px 0 15px 0;
+            border-radius: 10px;
+            
+          }
+          .sizesList {
+            width: 47px;
+            display: grid;
+            gap: 10px;
+            padding-bottom:20px;
+          }
+          .colorList{
+            display: flex;
+            flex-wrap: wrap;
+            gap:10px;
+            font-size:12px;
+            padding-bottom:20px;
+          }
+          ul{
+          list-style:none;
+          padding:0px;
+          font-size:14px;
+          margin: 0px;
+          }
+
+        
+          .container {
+            display: grid;
+            grid-template-columns: 25% 75%;
+            gap: 20px;
+            padding: 20px;
+            background-color: #fff;
+
+          }
+
+          .sizesContainer {
+            padding: 20px;
+            background-color: #fff;
+         
+            border-radius: 10px;
+    
+          }
+          .sizesContainer h3 {
+            margin: 0px;
+            color: #000;
+            font-size: 17px;
+          }
+        .sizesContainer h2.sizesHeading {
+          font-size: 14px;
+          margin: 7px 0px;
+        }
+       .sizesList {
+         display: flex;
+         width: 100%;
+         flex:1;
+
+      }
+      .sizeElement{
+        height: 30px;
+        width: 30px ;
+      }
+
+          .product-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+          }
+          .slider.slick-initialized.slick-slider {
+           padding:0px !important;
+          }
+          .product-section img {
+            width: 100%;
+            height: 300px;
+          }
+          .productContainer h2 ,h4 {
+            font-size: 15px;
+            margin: 5px 3px;
+            color: #000;
+            font-family: 'Times New Roman', Times, serif;
+          }
+          .productContainer h4{
+            font-weight: 400;
+          }
+          .productContainer h2{
+          font-weight:"600";
+          z-index:2;
+          }
+          h2.sizesHeading {
+            font-size: 20px;
+            font-weight: 500;
+            font-family: 'Times New Roman', Times, serif;
+          }
+          .colorElement:hover {
+            color: red;
+          }
+          .colorElement.selectedColor {
+            color: rgb(35, 206, 169);
+          }
+          .sizeElement:hover {
+            color: rgb(38, 177, 165) (99, 31, 31);
+          }
+
+        
+          img.thumbnail.slick-slide {
+            border-radius: 50%;
+            border: 1px solid lightgray;
+            padding: 2px;
+            height: 30px;
+            width: 30px !important;
+            margin: 3px ;
+            cursor:pointer;
+          }
+          img.slick-slide.slick-current.slick-active {
+            object-fit: cover;
+            width:277px;
+            
+
+          }
+          .slick-list.draggable {
+            padding: 0px !important;
+          }
+          .slick-track {
+            margin: 0 !important;
+            transform: translate3d(0px, 0px, 0px) !important;
+          }
+          .sizeElement {
+            border-radius: 5px;
+            text-align: center;
+            background: #1a1a1a;
+            color: #fff;
+            cursor: pointer;
+          }
+
+          .addToCartButton {
+            font-family:"poppins","sans-serif";
+            line-height: 38px;
+            position: relative;
+            bottom: -330px;
+            z-index: 0;
+            transform: translateY(-10px);
+            background-color: #262626;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 279px;
+            opacity: 0;
+            word-spacing:1px;
+            letter-spacing:1px;
+            
+            font-size: 14px;
+            transition:  0.5s ease-in-out;
+            border-top-left-radius: 1px;
+            border-top-right-radius: 1px;
+            font-weight:600;
+          }
+          .addToCartButton:hover{
+            background:#d25b5b;
+          }
+
+       
+        .productContainer:hover .addToCartButton {
+            opacity: 1;
+            transform: translateY(-29px);
+            transition:  0.3s ease;
+            z-index: 1;
+
+
+
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
+    >
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+      async
+    ></script>
+
+    <div class="container">
+      <div class="sizesContainer">
+        <h3>Collection Filter App</h3>
+        <h2 class="sizesHeading">Available Sizes</h2>
+        <div class="sizesList" id="sizesList"></div>
+
+        <div class="color">
+          <h2 class="sizesHeading">Available Colors</h2>
+          <div class="colorList" id="colorsList"></div>
+        </div>
+        <div class="priceContainer">
+          <h2 class="sizesHeading">Price</h2>
+          <ul class="priceList">
+            <li class="priceOption" data-min="0" data-max="300">Rs.0 - 10</li>
+            <li class="priceOption" data-min="301" data-max="600">Rs.301 - 600</li>
+            <li class="priceOption" data-min="601" data-max="1000">Rs.601 - 1000</li>
+            <li class="priceOption" data-min="1001" data-max="99999">Rs.1001+</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-section">
+        <div class="slider"></div>
+      </div>
+    </div>
+  </body>
+</html>

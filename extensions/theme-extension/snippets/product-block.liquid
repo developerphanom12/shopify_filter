@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Products...</title>
+    <!-- Load Polaris CSS -->
+    <link href="https://sdks.shopifycdn.com/polaris/6.0.0/polaris.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="root">Shopify Produ</div>
+    <!-- Container for React component -->
+    <div id="react-container"></div>
+
+    <!-- Load React, ReactDOM, and Babel -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" defer></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" defer></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" defer></script>
+
+    <!-- Load Polaris JS -->
+    <script src="https://sdks.shopifycdn.com/polaris/6.0.0/polaris.js" defer></script>
+
+    <!-- Your React Component -->
+    <script type="text/babel">
+        class MyReactComponent extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <h3>Hello, This is React World</h3>
+                        <p>This is a Polaris component:</p>
+                        <p><a href="#" class="df">Primary Button</a></p>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<MyReactComponent />, document.getElementById('react-container'));
+    </script>
+</body>
+</html>
