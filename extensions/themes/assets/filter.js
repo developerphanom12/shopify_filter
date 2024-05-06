@@ -66,8 +66,15 @@ async function fetchAndDisplayProducts(size, color) {
         const sliderContainer = document.createElement("div");
         sliderContainer.classList.add("slider");
 
+        function addAddToCartButton(productContainer, variantId) {
+         
+          productContainer.appendChild(addToCartButton);
+        }
+  
+
         const addToCartButton = document.createElement("button");
         addToCartButton.textContent = "Add to Cart";
+       
         product.variants.forEach((variant) => {
           if (variant.image) {
             const img = document.createElement("img");
@@ -77,11 +84,11 @@ async function fetchAndDisplayProducts(size, color) {
             addToCartButton.classList.add("addToCartButton");
 
             // Add event listener to the button if needed
-            addToCartButton.addEventListener("click", () => {
-              // Handle adding the product to the cart here
-              console.log("Product added to cart");
+            addToCartButton.addEventListener('click', () => {
+              addToCart(variantId);
             });
-
+            const variantId = product.variants[0].id; // Assuming the first variant is selected
+            addAddToCartButton(productContainer, variantId); 
             productContainer.appendChild(addToCartButton);
           }
         });
@@ -142,7 +149,7 @@ async function fetchAndDisplayProducts(size, color) {
         const priceElement = document.createElement("h4");
         priceElement.textContent = `Rs: ${product.variants[0].price}`; // Displaying the price of the first variant
         productContainer.appendChild(priceElement);
-
+      
         productInfo.appendChild(productContainer);
         productContainer.appendChild(thumbnailContainer);
       });
@@ -340,5 +347,30 @@ function displayProducts(data) {
     const noColorsMessage = document.createElement("p");
     noColorsMessage.textContent = "No colors available.";
     colorsContainer.appendChild(noColorsMessage);
+  }
+}
+async function addToCart(variantId) {
+  try {
+    const parts = variantId.split('/');
+
+    const numericId = parts[parts.length - 1];
+
+    const response = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: numericId,
+        quantity: 1,
+      }),
+    });
+    if (response.ok) {
+      console.log('Product added to cart successfully.');
+    } else {
+      console.error('Error adding product to cart:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error adding product to cart:', error);
   }
 }

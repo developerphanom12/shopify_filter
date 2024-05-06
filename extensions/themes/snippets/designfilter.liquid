@@ -38,14 +38,11 @@
 
           .productContainer {
             position:relative;
-            padding: 10px;
+            padding: 10px 5px;
             background-color: #fff;
-            {% comment %} border: 1px solid #ddd; {% endcomment %}
-            width: 300px;
-            height: 430px;
-            margin: 0px 0 15px 0;
+            width: 280px;
+            margin: 5px;
             border-radius: 10px;
-            {% comment %} box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); {% endcomment %}
           }
           .sizesList {
             width: 47px;
@@ -70,7 +67,7 @@
           /* CSS for grid layout */
           .container {
             display: grid;
-            grid-template-columns: 25% 75%;
+            grid-template-columns: 20% 80%;
             gap: 20px;
             padding: 20px;
             background-color: #fff;
@@ -78,11 +75,9 @@
           }
 
           .sizesContainer {
-            padding: 20px;
+            padding: 20px 0px ;
             background-color: #fff;
-            {% comment %} border: 1px solid #ddd; {% endcomment %}
             border-radius: 10px;
-            {% comment %} box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px #2422223d; {% endcomment %}
           }
           .sizesContainer h3 {
             margin: 0px;
@@ -107,7 +102,7 @@
           .product-section {
             display: flex;
             flex-wrap: wrap;
-            gap: 18px;
+            gap: 8px;
           }
           .slider.slick-initialized.slick-slider {
            padding:0px !important;
@@ -119,6 +114,7 @@
           .productContainer h2 ,h4 {
             font-size: 15px;
             margin: 5px 3px;
+            padding:0px;
             color: #000;
             font-family: 'Times New Roman', Times, serif;
           }
@@ -156,7 +152,7 @@
           }
           img.slick-slide.slick-current.slick-active {
             object-fit: cover;
-            width:277px;
+            width:270px;
             {% comment %} height:300px; {% endcomment %}
 
           }
@@ -186,11 +182,11 @@
             color: white;
             border: none;
             cursor: pointer;
-            width: 279px;
+            width: 267px;
             opacity: 0;
             word-spacing:1px;
             letter-spacing:1px;
-            {% comment %} padding:5px 0px; {% endcomment %}
+            margin-left:2px ;
             font-size: 14px;
             transition:  0.5s ease-in-out;
             border-top-left-radius: 1px;
