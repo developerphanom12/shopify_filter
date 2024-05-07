@@ -5,73 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Search</title>
     <style>
-        .search-section {
-          background: #fff;
-          text-align: end;
-          padding: 10px;
-        }
-        input#searchInput {
-          padding: 10px;
-          border: transparent;
-          border-bottom: 1px solid #80808073;
-          margin-right: -10px;
-        }
-
-        *:focus-visible {
-          outline: none;
-          box-shadow: none;
-        }
-        button#searchButton {
-          border: none;
-          padding: 10px;
-          border-bottom: 1px solid #80808073;
-          margin: 0px;
-          background: #fff;
-        }
-        .productsearchContainer {
-          padding-bottom: 5px;
-          width:300px;
-
+      div#shopify-block-exampleone_search_qattqz {
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
       }
-        .product-search-section {
-          background: #fff;
-          display:flex;
-          flex-wrap:wrap;
-          border: 0.3px solid lightgray;
+      .search-section {
+        background: #fff;
+        text-align: end;
+        padding: 10px;
+        width: 100%;
+      }
+      input#searchInput {
+        padding: 10px;
+        border: transparent;
+        border-bottom: 1px solid #80808073;
+        margin-right: -10px;
+      }
 
-          {% comment %} padding: 10px; {% endcomment %}
-        }
-        .search-productshow.slick-initialized.slick-slider {
-          width: 100px;
-        }
-        .search-productshow.slick-list.draggable {
-          width: 100px !important;
-          height: 100px !important;
-          padding:10px 20px;
+      *:focus-visible {
+        outline: none;
+        box-shadow: none;
+      }
+      button#searchButton {
+        border: none;
+        padding: 10px;
+        border-bottom: 1px solid #80808073;
+        margin: 0px;
+        background: #fff;
+      }
+      .productsearchContainer {
+        padding-bottom: 5px;
+        width: 280px;
+        display: flex;
+      }
+      .product-search-section {
+        background: #fff;
+        display: flex;
+        width: 68%;
+        border: 0.3px solid lightgray;
+        margin: 0px 20px;
+        box-shadow: 0px 3px 6px 0px lightgray;
+        overflow-y: auto;  
+        position: absolute;
+        z-index: 9;
+        top: 67px;
+        max-height: 250px;
+      }
+      .product-search-section.large-height {
+        overflow-y: scroll;
+      }
 
-        }
-        .search-productshow.slick-initialized.slick-slider {
-            width: 100px;
-            margin-left: 28px;
-        }
-        img.slick-slide.slick-cloned {
-          object-fit: contain;
-          width: 100px;
-          height: 100px;
-        }
-        h2 {
-          font-size: 14px;
-          padding: 10px 10px 0px;
-          color: #000;
-          margin:0px;
-        }
-        p {
-          font-size: 12px;
-          padding: 0px 10px 10px  ;
-          color: #000;
-          margin:0px;
-
-        }
+      .search-productshow.slick-initialized.slick-slider {
+        width: 100px;
+      }
+      .search-productshow.slick-list.draggable {
+        width: 100px !important;
+        height: 100px !important;
+        padding: 10px 20px;
+      }
+      .search-productshow.slick-initialized.slick-slider {
+        width: 50px;
+        margin-left: 8px;
+        align-items: center;
+        display: flex;
+      }
+      img.slick-slide.slick-cloned {
+        object-fit: contain;
+        width: 50px;
+        height: 50px;
+      }
+      h2 {
+        font-size: 14px;
+        padding: 10px 10px;
+        color: #000;
+        margin: 0px;
+      }
+      p {
+        font-size: 13px;
+        padding: 0px 10px 10px;
+        color: #000;
+        margin: 0px;
+      }
+      button.slick-next.slick-arrow,
+      button.slick-prev.slick-arrow {
+        display: none !important;
+      }
+      .empty-div {
+        width: 200px;
+        background: #d3d3d330;
+        padding: 10px;
+      }
+      .search-title-parent {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 640px;
+        padding: 10px;
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link
@@ -91,7 +123,11 @@
       </button>
     </div>
     <div class="product-search-section">
-      <div class="search-productshow"></div>
+      <div class="empty-div"></div>
+      <div class="search-title-parent">
+        <div class="search-productshow"></div>
+        <div class="title-price"></div>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>

@@ -3,7 +3,7 @@
 client_id = "cda589aa1d4db0408131cad372bcde7d"
 name = "exampleone"
 handle = "exampleone-2"
-application_url = "https://generally-respected-wood-olympus.trycloudflare.com"
+application_url = "https://remain-changing-absolute-showtimes.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_product_listings,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://generally-respected-wood-olympus.trycloudflare.com/auth/callback",
-  "https://generally-respected-wood-olympus.trycloudflare.com/auth/shopify/callback",
-  "https://generally-respected-wood-olympus.trycloudflare.com/api/auth/callback"
+  "https://remain-changing-absolute-showtimes.trycloudflare.com/auth/callback",
+  "https://remain-changing-absolute-showtimes.trycloudflare.com/auth/shopify/callback",
+  "https://remain-changing-absolute-showtimes.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
