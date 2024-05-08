@@ -3,7 +3,7 @@
 client_id = "5961064b5fa9d6a0bbc3df7b679cb1ca"
 name = "Filter3april"
 handle = "filter3april"
-application_url = "https://usd-diary-reference-zero.trycloudflare.com"
+application_url = "https://separated-audi-tripadvisor-examines.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_product_listings,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://usd-diary-reference-zero.trycloudflare.com/auth/callback",
-  "https://usd-diary-reference-zero.trycloudflare.com/auth/shopify/callback",
-  "https://usd-diary-reference-zero.trycloudflare.com/api/auth/callback"
+  "https://separated-audi-tripadvisor-examines.trycloudflare.com/auth/callback",
+  "https://separated-audi-tripadvisor-examines.trycloudflare.com/auth/shopify/callback",
+  "https://separated-audi-tripadvisor-examines.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

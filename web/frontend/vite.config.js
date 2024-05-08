@@ -63,6 +63,7 @@ export default defineConfig({
       "^/collections(/|(\\?.*)?$)": proxyOptions,
       "^/search(/|(\\?.*)?$)": proxyOptions, 
       
+      
 
 
     },

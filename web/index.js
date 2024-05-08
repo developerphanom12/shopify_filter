@@ -48,10 +48,10 @@ app.get("/product", async (req, res) => {
   try {
     
     const shopName = "quickstart-779a2240.myshopify.com";
-    const accessToken = "shpua_c3c16c65765a3c311d49ed68726fc59b";
+    const accessToken = "shpua_a63e181d2c5a7d9ebce1d41bf2a1531d";
     const query = `
     {
-      products(first: 100, query: "status:active") {
+      products(first: 200, query: "status:active") {
         edges {
           node {
          
@@ -95,7 +95,7 @@ app.get("/product", async (req, res) => {
 app.get("/sfd", async (req, res) => {
   try {
     const shopName = "quickstart-779a2240.myshopify.com";
-    const accessToken = "shpua_c3c16c65765a3c311d49ed68726fc59b";
+    const accessToken = "shpua_a63e181d2c5a7d9ebce1d41bf2a1531d";
 
     const query = `
       {
@@ -131,7 +131,7 @@ app.get("/sfd", async (req, res) => {
 app.get("/collections", async (req, res) => {
   try {
     const shopName = "quickstart-779a2240.myshopify.com";
-    const accessToken = "shpua_c3c16c65765a3c311d49ed68726fc59b";
+    const accessToken = "shpua_a63e181d2c5a7d9ebce1d41bf2a1531d";
 
     const sizes = req.query.sizes;
     const colors = req.query.colors;
@@ -147,7 +147,7 @@ app.get("/collections", async (req, res) => {
 
     const query = `
     {
-      products(first:50, query: "status:active") {
+      products(first:200, query: "status:active") {
         edges {
           node {
             id
@@ -162,7 +162,7 @@ app.get("/collections", async (req, res) => {
                 }
               }
             }
-            variants(first: 5) {
+            variants(first:10) {
               edges {
                 node {
                   id
@@ -283,7 +283,7 @@ app.get("/search", async (req, res) => {
       {
         query: `
      {
-    products(first: 50, query: "status:active title:*${title ? title : ""}*") {
+    products(first: 200, query: "status:active title:*${title ? title : ""}*") {
       edges {
         node {
           id
@@ -296,7 +296,7 @@ app.get("/search", async (req, res) => {
               }
             }
           }
-          variants(first: 5) {
+          variants(first: 10) {
             edges {
               node {
                 id
@@ -320,7 +320,7 @@ app.get("/search", async (req, res) => {
       },
       {
         headers: {
-          "X-Shopify-Access-Token": "shpua_c3c16c65765a3c311d49ed68726fc59b",
+          "X-Shopify-Access-Token": "shpua_a63e181d2c5a7d9ebce1d41bf2a1531d",
         },
       }
     );
