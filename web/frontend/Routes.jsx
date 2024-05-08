@@ -52,7 +52,7 @@ function useRoutes(pages) {
 
       if (path.endsWith("/") && path !== "/") {
         path = path.substring(0, path.length - 1);
-      }
+      }     
 
       if (!pages[key].default) {
         console.warn(`${key} doesn't export a default React component`);
