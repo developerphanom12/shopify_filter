@@ -62,8 +62,8 @@ export default defineConfig({
       "^/products(/|(\\?.*)?$)": proxyOptions,
       "^/collections(/|(\\?.*)?$)": proxyOptions,
       "^/search(/|(\\?.*)?$)": proxyOptions,
+      "^/collectionslist(/|(\\?.*)?$)": proxyOptions,
 
-      
     },
   },
 });

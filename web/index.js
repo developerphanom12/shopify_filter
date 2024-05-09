@@ -151,6 +151,7 @@ app.get("/collections", async (req, res) => {
                 node {
                   id
                   title
+                  handle
                   images(first: 3) {
                     edges {
                       node {
@@ -223,6 +224,7 @@ app.get("/collections", async (req, res) => {
       .map((product) => ({
         id: product.node.id,
         title: product.node.title,
+        handle:product.node.handle,
         images: product.node.images,
         variants: product.node.variants.edges
           .filter((variant) => {
@@ -536,6 +538,48 @@ app.get("/api/collections/list", async (req, res) => {
   }
 });
 
+
+
+
+app.get("/collectionslist", async (req, res) => {
+  try {
+    const shopName = "phanomgetcustomer.myshopify.com";
+    const accessToken = "shpua_da33a401fbae61a60d7e108bd83260da";
+    const query = `
+      {
+        collections(first: 50) {
+          edges {
+            node {
+              id
+              title
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await axios.post(
+      `https://${shopName}/admin/api/graphql.json`,
+      { query },
+      {
+        headers: {
+          "X-Shopify-Access-Token": accessToken,
+        },
+      }
+    );
+
+    const collections = response.data.data.collections.edges.map(
+      (edge) => edge.node
+    );
+    res
+      .status(200)
+      .json({ status: 200, data: collections });
+  } catch (error) {
+    console.error("Error fetching collections:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 app.use("/*", shopify.ensureInstalledOnShop(), async (req, res, next) => {
@@ -546,3 +590,4 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (req, res, next) => {
 });
 
 app.listen(PORT);
+

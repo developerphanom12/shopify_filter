@@ -2,211 +2,245 @@
 <html lang="en">
   <head>
     <style>
-          .slider {
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid transparent;
-          }
+            .slider {
+              padding: 10px;
+              background-color: #fff;
+              border: 1px solid transparent;
+            }
 
-          /* CSS for selectElement */
-          .selectElement {
-            display: none; /* Initially hide selectElement */
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-          }
+            /* CSS for selectElement */
+            .selectElement {
+              display: none; /* Initially hide selectElement */
+              margin-top: 10px;
+              padding: 10px;
+              background-color: #fff;
+              border: 1px solid #ccc;
+            }
 
-          /* CSS for selectElement when visible */
-          .selectElement.visible {
-            display: block;
-          }
+            /* CSS for selectElement when visible */
+            .selectElement.visible {
+              display: block;
+            }
 
-          /* CSS for sizeElement */
-          .sizeElement,
-          .colorElement {
-            cursor: pointer;
-            font-family: 'Times New Roman', Times, serif;
-          }
+            /* CSS for sizeElement */
+            .sizeElement,
+            .colorElement {
+              cursor: pointer;
+              font-family: 'Times New Roman', Times, serif;
+            }
 
-          .sizesContainer h2.sizesHeading {
-            font-size: 14px;
-            margin: 7px 0px;
-            font-weight: 600;
-        }
-          /* CSS for productContainer */
+            .sizesContainer h2.sizesHeading {
+              font-size: 14px;
+              margin: 5px 0px;
+              font-weight: 600;
+          }
+            /* CSS for productContainer */
 
-          .productContainer {
-            position:relative;
-            padding: 10px 5px;
-            background-color: #fff;
-            width: 280px;
-            margin: 5px;
-            border-radius: 10px;
-          }
-          .sizesList {
-            width: 47px;
-            display: grid;
-            gap: 10px;
-            padding-bottom:20px;
-          }
-          .colorList{
-            display: flex;
-            flex-wrap: wrap;
-            gap:10px;
-            font-size:12px;
-            padding-bottom:20px;
-          }
-          ul{
-          list-style:none;
-          padding:0px;
-          font-size:14px;
-          margin: 0px;
-          }
+            .productContainer {
+              position:relative;
+              padding: 10px 5px;
+              background-color: #fff;
+              width: 280px;
+              margin: 5px;
+              border-radius: 10px;
+            }
+            .sizesList {
+              width: 47px;
+              display: grid;
+              gap: 10px;
+              padding:5px 10px 20px;
+            }
 
-          /* CSS for grid layout */
-          .container {
-            display: grid;
-            grid-template-columns: 20% 80%;
-            gap: 20px;
-            padding: 20px;
-            background-color: #fff;
+            .colorList {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px;
+              font-size: 12px;
+              padding:0px 10px ;
+              overflow: hidden;
+            }
 
-          }
-
-          .sizesContainer {
-            padding: 20px 0px ;
-            background-color: #fff;
-            border-radius: 10px;
-          }
-          .sizesContainer h3 {
+            .moreButton {
+              cursor: pointer;
+              color: #000;
+              font-size:13px;
+              text-align: end;
+              padding:0px 10px;
+            }
+            ul{
+            list-style:none;
+            padding:0px 10px;
+            font-size:14px;
             margin: 0px;
-            color: #000;
-            font-size: 17px;
-          }
-        .sizesContainer h2.sizesHeading {
-          font-size: 14px;
-          margin: 7px 0px;
+            }
+
+            /* CSS for grid layout */
+            .container {
+              display: flex;
+              {% comment %} grid-template-columns: 20% 80%; {% endcomment %}
+              gap: 20px;
+              padding: 20px;
+              background-color: #fff;
+              @media (max-width:765px){
+              flex-direction:column;
+              }
+
+            }
+
+            .sizesContainer {
+              padding: 20px 0px ;
+              background-color: #fff;
+              border-radius: 10px;
+              width: 20%;
+            }
+            .sizesContainer h3 {
+              margin: 0px;
+              color: #000;
+              font-size: 17px;
+              padding:10px;
+            }
+
+         .sizesList {
+           display: flex;
+           width: 100%;
+           flex:1;
+
         }
-       .sizesList {
-         display: flex;
-         width: 100%;
-         flex:1;
+        .sizeElement{
+          height: 30px;
+          width: 30px ;
+        }
 
-      }
-      .sizeElement{
-        height: 30px;
-        width: 30px ;
-      }
+        .product-section {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          width:85%;
+        }
+            .slider.slick-initialized.slick-slider {
+             padding:0px !important;
+            }
+            .product-section img {
+              width: 100%;
+              height: 300px;
+            }
+            .productContainer h2 ,h4 {
+              font-size: 15px;
+              margin: 5px 3px;
+              padding:0px;
+              color: #000;
+              font-family: 'Times New Roman', Times, serif;
+            }
+            .productContainer h4{
+              font-weight: 400;
+            }
+            .productContainer h2{
+             font-weight:"600";
+             z-index:2;
+            }
+            h2.sizesHeading {
+              font-size: 20px;
+              font-weight: 500;
+              padding:0px 10px;
+              font-family: 'Times New Roman', Times, serif;
+              color:#3a0000;
+            }
 
-          .product-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            .colorElement.selectedColor {
+              color: #000;
+              font-weight:600;
+            }
+
+
+
+            /* thumbnial images design */
+            img.thumbnail.slick-slide {
+              border-radius: 50%;
+              border: 1px solid lightgray;
+              padding: 2px;
+              height: 30px;
+              width: 30px !important;
+              margin: 3px ;
+              cursor:pointer;
+            }
+            img.slick-slide.slick-current.slick-active {
+              object-fit: cover;
+              width:270px;
+              {% comment %} height:300px; {% endcomment %}
+
+            }
+            .slick-list.draggable {
+              padding: 0px !important;
+            }
+            .slick-track {
+              margin: 0 !important;
+              transform: translate3d(0px, 0px, 0px) !important;
+            }
+            .sizeElement {
+              border-radius: 5px;
+              text-align: center;
+              background: #1a1a1a;
+              color: #fff;
+              cursor: pointer;
+            }
+            .sizeElement.selectedSize.selected {
+              background-color: #000;
+              font-weight:700;
+              color:#FFE1E1;
+            }
+
+            .addToCartButton {
+              font-family:"poppins","sans-serif";
+              line-height: 38px;
+              position: relative;
+              bottom: -330px;
+              z-index: 0;
+              transform: translateY(-10px);
+              background-color: #262626;
+              color: white;
+              border: none;
+              cursor: pointer;
+              width: 267px;
+              opacity: 0;
+              word-spacing:1px;
+              letter-spacing:1px;
+              margin-left:2px ;
+              font-size: 14px;
+              transition:  0.5s ease-in-out;
+              border-top-left-radius: 1px;
+              border-top-right-radius: 1px;
+              font-weight:600;
+            }
+            .addToCartButton:hover{
+              background:#d25b5b;
+            }
+
+              .priceOption:hover{
+              cursor:pointer;
+              }
+              li.priceOption.selectedPriceOption {
+                font-weight: 600;
+                color: #000;
+              }
+          {% comment %} // Add CSS to reveal the button on hover {% endcomment %}
+          .productContainer:hover .addToCartButton {
+              opacity: 1;
+              transform: translateY(-29px);
+              transition:  0.3s ease;
+              z-index: 1;
+
           }
-          .slider.slick-initialized.slick-slider {
-           padding:0px !important;
-          }
-          .product-section img {
-            width: 100%;
-            height: 300px;
-          }
-          .productContainer h2 ,h4 {
+
+          .selectedOptions {
+            padding: 0px 10px;
             font-size: 15px;
-            margin: 5px 3px;
-            padding:0px;
+            font-weight: 600;
             color: #000;
-            font-family: 'Times New Roman', Times, serif;
-          }
-          .productContainer h4{
-            font-weight: 400;
-          }
-          .productContainer h2{
-          font-weight:"600";
-          z-index:2;
-          }
-          h2.sizesHeading {
-            font-size: 20px;
-            font-weight: 500;
-            font-family: 'Times New Roman', Times, serif;
-          }
-          .colorElement:hover {
-            color: red;
-          }
-          .colorElement.selectedColor {
-            color: rgb(35, 206, 169);
-          }
-          .sizeElement:hover {
-            color: rgb(38, 177, 165) (99, 31, 31);
-          }
-
-          /* thumbnial images design */
-          img.thumbnail.slick-slide {
-            border-radius: 50%;
-            border: 1px solid lightgray;
-            padding: 2px;
-            height: 30px;
-            width: 30px !important;
-            margin: 3px ;
-            cursor:pointer;
-          }
-          img.slick-slide.slick-current.slick-active {
-            object-fit: cover;
-            width:270px;
-            {% comment %} height:300px; {% endcomment %}
-
-          }
-          .slick-list.draggable {
-            padding: 0px !important;
-          }
-          .slick-track {
-            margin: 0 !important;
-            transform: translate3d(0px, 0px, 0px) !important;
-          }
-          .sizeElement {
-            border-radius: 5px;
-            text-align: center;
-            background: #1a1a1a;
-            color: #fff;
-            cursor: pointer;
-          }
-
-          .addToCartButton {
-            font-family:"poppins","sans-serif";
-            line-height: 38px;
-            position: relative;
-            bottom: -330px;
-            z-index: 0;
-            transform: translateY(-10px);
-            background-color: #262626;
-            color: white;
-            border: none;
-            cursor: pointer;
-            width: 267px;
-            opacity: 0;
-            word-spacing:1px;
-            letter-spacing:1px;
-            margin-left:2px ;
-            font-size: 14px;
-            transition:  0.5s ease-in-out;
-            border-top-left-radius: 1px;
-            border-top-right-radius: 1px;
-            font-weight:600;
-          }
-          .addToCartButton:hover{
-            background:#d25b5b;
-          }
-
-        {% comment %} // Add CSS to reveal the button on hover {% endcomment %}
-        .productContainer:hover .addToCartButton {
-            opacity: 1;
-            transform: translateY(-29px);
-            transition:  0.3s ease;
-            z-index: 1;
-
-
-
         }
+
+        .sizes, .colors, .prices{
+          font-size: 13px;
+      }
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link
@@ -227,12 +261,20 @@
     <div class="container">
       <div class="sizesContainer">
         <h3>Collection Filter App</h3>
+        <div id="collectionList"></div>
+
+        <div class="selectedOptions" id="selectedOptions">
+          <div class="colors" id="colors"></div>
+          <div class="sizes" id="sizes"></div>
+          <div class="prices" id="prices"></div>
+        </div>
         <h2 class="sizesHeading">Available Sizes</h2>
         <div class="sizesList" id="sizesList"></div>
 
         <div class="color">
           <h2 class="sizesHeading">Available Colors</h2>
           <div class="colorList" id="colorsList"></div>
+          <div class="moreButton" onclick="handleMoreButton()">more</div>
         </div>
         <div class="priceContainer">
           <h2 class="sizesHeading">Price</h2>
@@ -244,7 +286,6 @@
           </ul>
         </div>
       </div>
-
       <div class="product-section">
         <div class="slider"></div>
       </div>

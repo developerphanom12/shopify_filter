@@ -66,15 +66,13 @@ async function fetchAndDisplayProducts(size, color) {
         const sliderContainer = document.createElement("div");
         sliderContainer.classList.add("slider");
 
-        function addAddToCartButton(productContainer, variantId) {
-         
+        function addAddToCartButton(productContainer, variantId, handle) {
           productContainer.appendChild(addToCartButton);
         }
-  
 
         const addToCartButton = document.createElement("button");
         addToCartButton.textContent = "Add to Cart";
-       
+
         product.variants.forEach((variant) => {
           if (variant.image) {
             const img = document.createElement("img");
@@ -84,12 +82,15 @@ async function fetchAndDisplayProducts(size, color) {
             addToCartButton.classList.add("addToCartButton");
 
             // Add event listener to the button if needed
-            addToCartButton.addEventListener('click', () => {
-              addToCart(variantId);
+            addToCartButton.addEventListener("click", () => {
+              addToCart(variantId, handleId);
             });
-            const variantId = product.variants[0].id; // Assuming the first variant is selected
-            addAddToCartButton(productContainer, variantId); 
+            const variantId = product.variants[0].id;
+            const handleId = product.handle; // Assuming the first variant is selected
+            // Assuming the first variant is selected
+            addAddToCartButton(productContainer, variantId, handleId);
             productContainer.appendChild(addToCartButton);
+            console.log(handleId, "handleId");
           }
         });
 
@@ -149,7 +150,12 @@ async function fetchAndDisplayProducts(size, color) {
         const priceElement = document.createElement("h4");
         priceElement.textContent = `Rs: ${product.variants[0].price}`; // Displaying the price of the first variant
         productContainer.appendChild(priceElement);
-      
+
+        // Display the selected color
+        const selectedColorElement = document.createElement("p");
+        selectedColorElement.textContent = `Selected Color: ${color}`;
+        productContainer.appendChild(selectedColorElement);
+
         productInfo.appendChild(productContainer);
         productContainer.appendChild(thumbnailContainer);
       });
@@ -165,6 +171,56 @@ async function fetchAndDisplayProducts(size, color) {
     console.error("Error fetching product data:", error);
   }
 }
+
+// Function to handle the "More" button click
+function handleMoreButton() {
+  const moreButton = document.querySelector(".moreButton");
+  const colorList = document.querySelector(".colorList");
+
+  // Toggle the visibility of extra colors
+  colorList.classList.toggle("showAllColors");
+
+  // Change the button text based on visibility
+  if (colorList.classList.contains("hideExtraColors")) {
+    moreButton.textContent = "More";
+    showAllColors();
+  } else {
+    moreButton.textContent = " Less";
+    hideExtraColors();
+  }
+}
+
+// Function to show all colors
+function showAllColors() {
+  const colors = document.querySelectorAll(".colorElement.hidden");
+  colors.forEach((color) => {
+    color.classList.remove("hidden");
+  });
+}
+
+// Function to hide extra colors
+function hideExtraColors() {
+  const colors = document.querySelectorAll(".colorElement");
+  for (let i = 7; i < colors.length; i++) {
+    colors[i].classList.add("hidden");
+  }
+}
+
+// Call hideExtraColors to hide extra colors initially
+hideExtraColors();
+
+// Add event listener to the "More" button
+document
+  .querySelector(".moreButton")
+  .addEventListener("click", handleMoreButton);
+
+// Add event listener to color elements for selection
+const colorElements = document.querySelectorAll(".colorElement");
+colorElements.forEach((colorElement) => {
+  colorElement.addEventListener("click", () => {
+    handleColorSelection(colorElement);
+  });
+});
 
 const sizesContainer = document.getElementById("sizesList");
 const colorsContainer = document.getElementById("colorsList");
@@ -205,6 +261,10 @@ function updateSelection(element, container, fetchData) {
     }
   }
 
+  // Update selected options before fetching data
+  updateSelectedOptions();
+
+  // Fetch data after updating selected options
   fetchData(selectedSize, selectedColor);
 }
 
@@ -212,22 +272,31 @@ function updateSelectedOptions() {
   const selectedOptionsDiv = document.getElementById("selectedOptions");
   if (!selectedOptionsDiv) return;
 
-  let selectedOptionsText = "Selected options: ";
+  // Clear existing content
+  selectedOptionsDiv.innerHTML = "Selected Categories : ";
+
+  // Create child div elements for each selected option category
+  // let selectedOptionsText = "Selected options: ";
   if (selectedSize) {
-    selectedOptionsText += `Size: ${selectedSize}, `;
+    const sizeDiv = document.createElement("div");
+    sizeDiv.textContent = `Size: ${selectedSize}`;
+    sizeDiv.classList.add("sizes"); // Adding class 'size' to sizeDiv
+    selectedOptionsDiv.appendChild(sizeDiv);
   }
   if (selectedColor) {
-    selectedOptionsText += `Color: ${selectedColor}, `;
+    const colorDiv = document.createElement("div");
+    colorDiv.textContent = `Color: ${selectedColor}`;
+    colorDiv.classList.add("colors"); // Adding class 'color' to colorDiv
+    selectedOptionsDiv.appendChild(colorDiv);
   }
   if (selectedPriceOption) {
     const minPrice = selectedPriceOption.dataset.min;
     const maxPrice = selectedPriceOption.dataset.max;
-    selectedOptionsText += `Price: ${minPrice} - ${maxPrice}, `;
+    const priceDiv = document.createElement("div");
+    priceDiv.textContent = `Price: ${minPrice} - ${maxPrice}`;
+    priceDiv.classList.add("prices"); // Adding class 'price' to priceDiv
+    selectedOptionsDiv.appendChild(priceDiv);
   }
-
-  selectedOptionsText = selectedOptionsText.slice(0, -2);
-
-  selectedOptionsDiv.textContent = selectedOptionsText;
 }
 
 sizesContainer.addEventListener("click", (event) => {
@@ -248,13 +317,22 @@ priceOptions.forEach((option) => {
     if (selectedOption) {
       selectedOption.classList.remove("selectedPriceOption");
     }
-    option.classList.add("selectedPriceOption");
-    selectedPriceOption = option;
+
+    if (selectedOption !== option) {
+      option.classList.add("selectedPriceOption");
+      selectedPriceOption = option;
+    } else {
+      // If the same price option is clicked again, deselect it
+      selectedPriceOption = null;
+    }
+
     const size = selectedSize;
     const color = selectedColor;
     await fetchAndDisplayProducts(size, color);
+    updateSelectedOptions(); // Update selected options display
   });
 });
+
 const clearColorButton = document.getElementById("clearColorButton");
 if (clearColorButton) {
   clearColorButton.addEventListener("click", async () => {
@@ -349,16 +427,16 @@ function displayProducts(data) {
     colorsContainer.appendChild(noColorsMessage);
   }
 }
-async function addToCart(variantId) {
+async function addToCart(variantId, handleId) {
   try {
-    const parts = variantId.split('/');
-
+    const parts = variantId.split("/");
     const numericId = parts[parts.length - 1];
-
-    const response = await fetch('/cart/add.js', {
-      method: 'POST',
+    const formattedTitle = handleId;
+    console.log("handle", formattedTitle);
+    const response = await fetch("/cart/add.js", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id: numericId,
@@ -366,11 +444,44 @@ async function addToCart(variantId) {
       }),
     });
     if (response.ok) {
-      console.log('Product added to cart successfully.');
+      console.log("Product added to cart successfully.");
+      window.location.href = `/products/${formattedTitle}`;
     } else {
-      console.error('Error adding product to cart:', response.statusText);
+      console.error("Error adding product to cart:", response.statusText);
     }
   } catch (error) {
-    console.error('Error adding product to cart:', error);
+    console.error("Error adding product to cart:", error);
   }
 }
+
+async function fetchAndDisplayCollections() {
+  try {
+    const response = await fetch(`/apps/proxy/collectionslist`);
+    const data = await response.json();
+    displayCollections(data.data);
+  } catch (error) {
+    console.error("Error fetching collections:", error);
+  }
+}
+
+function displayCollections(collections) {
+  const collectionListDiv = document.getElementById("collectionList");
+  if (!collections || collections.length === 0) {
+    collectionListDiv.innerText = "No collections found.";
+    return;
+  }
+
+  collectionListDiv.innerHTML = "";
+
+  const ul = document.createElement("ul");
+
+  collections.forEach((collection) => {
+    const li = document.createElement("li");
+    li.textContent = collection.title;
+    ul.appendChild(li);
+  });
+
+  collectionListDiv.appendChild(ul);
+}
+
+document.addEventListener("DOMContentLoaded", fetchAndDisplayCollections);
