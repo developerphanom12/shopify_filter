@@ -28,6 +28,11 @@
               cursor: pointer;
               font-family: 'Times New Roman', Times, serif;
             }
+          .colorElement.selectedColor.deselected{
+          color: #0E1B4DBF;
+          font-weight:400;
+
+          }
 
             .sizesContainer h2.sizesHeading {
               font-size: 14px;
@@ -60,13 +65,7 @@
               overflow: hidden;
             }
 
-            .moreButton {
-              cursor: pointer;
-              color: #000;
-              font-size:13px;
-              text-align: end;
-              padding:0px 10px;
-            }
+
             ul{
             list-style:none;
             padding:0px 10px;
@@ -274,8 +273,8 @@
         <div class="color">
           <h2 class="sizesHeading">Available Colors</h2>
           <div class="colorList" id="colorsList"></div>
-          <div class="moreButton" onclick="handleMoreButton()">more</div>
         </div>
+
         <div class="priceContainer">
           <h2 class="sizesHeading">Price</h2>
           <ul class="priceList">

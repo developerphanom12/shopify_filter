@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const data = await fetchProductData();
+    populateColorDropdown(data.colors);
     displayProducts(data);
     const defaultSize = "S"; // Change to your default size
     await fetchAndDisplayProducts(defaultSize, null);
@@ -30,6 +31,8 @@ async function fetchProductData() {
   const response = await fetch("/apps/proxy/products");
   return await response.json();
 }
+
+
 
 async function fetchAndDisplayProducts(size, color) {
   const productInfo = document.querySelector(".product-section");
@@ -153,7 +156,7 @@ async function fetchAndDisplayProducts(size, color) {
 
         // Display the selected color
         const selectedColorElement = document.createElement("p");
-        selectedColorElement.textContent = `Selected Color: ${color}`;
+        // selectedColorElement.textContent = `Selected Color: ${color}`;
         productContainer.appendChild(selectedColorElement);
 
         productInfo.appendChild(productContainer);
@@ -171,48 +174,6 @@ async function fetchAndDisplayProducts(size, color) {
     console.error("Error fetching product data:", error);
   }
 }
-
-// Function to handle the "More" button click
-function handleMoreButton() {
-  const moreButton = document.querySelector(".moreButton");
-  const colorList = document.querySelector(".colorList");
-
-  // Toggle the visibility of extra colors
-  colorList.classList.toggle("showAllColors");
-
-  // Change the button text based on visibility
-  if (colorList.classList.contains("hideExtraColors")) {
-    moreButton.textContent = "More";
-    showAllColors();
-  } else {
-    moreButton.textContent = " Less";
-    hideExtraColors();
-  }
-}
-
-// Function to show all colors
-function showAllColors() {
-  const colors = document.querySelectorAll(".colorElement.hidden");
-  colors.forEach((color) => {
-    color.classList.remove("hidden");
-  });
-}
-
-// Function to hide extra colors
-function hideExtraColors() {
-  const colors = document.querySelectorAll(".colorElement");
-  for (let i = 7; i < colors.length; i++) {
-    colors[i].classList.add("hidden");
-  }
-}
-
-// Call hideExtraColors to hide extra colors initially
-hideExtraColors();
-
-// Add event listener to the "More" button
-document
-  .querySelector(".moreButton")
-  .addEventListener("click", handleMoreButton);
 
 // Add event listener to color elements for selection
 const colorElements = document.querySelectorAll(".colorElement");
@@ -249,6 +210,9 @@ function updateSelection(element, container, fetchData) {
     if (selectedElement) {
       selectedElement.classList.remove(selectedClass);
       selectedElement.classList.add(deselectedClass);
+      if (container.id === "colorsList") {
+        selectedColor = null;
+      }
     }
 
     element.classList.add(selectedClass);
@@ -347,6 +311,7 @@ if (clearColorButton) {
   });
 }
 
+
 function displayProducts(data) {
   sizesContainer.innerHTML = "";
   colorsContainer.innerHTML = "";
@@ -427,6 +392,7 @@ function displayProducts(data) {
     colorsContainer.appendChild(noColorsMessage);
   }
 }
+
 async function addToCart(variantId, handleId) {
   try {
     const parts = variantId.split("/");

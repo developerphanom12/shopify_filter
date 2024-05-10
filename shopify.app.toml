@@ -3,7 +3,7 @@
 client_id = "cda589aa1d4db0408131cad372bcde7d"
 name = "exampleone"
 handle = "exampleone-2"
-application_url = "https://raymond-tgp-kissing-novel.trycloudflare.com"
+application_url = "https://thumbs-organizational-db-july.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,9 +17,9 @@ scopes = "read_product_listings,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://raymond-tgp-kissing-novel.trycloudflare.com/auth/callback",
-  "https://raymond-tgp-kissing-novel.trycloudflare.com/auth/shopify/callback",
-  "https://raymond-tgp-kissing-novel.trycloudflare.com/api/auth/callback"
+  "https://thumbs-organizational-db-july.trycloudflare.com/auth/callback",
+  "https://thumbs-organizational-db-july.trycloudflare.com/auth/shopify/callback",
+  "https://thumbs-organizational-db-july.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
