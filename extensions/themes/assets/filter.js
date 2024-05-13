@@ -451,3 +451,20 @@ function displayCollections(collections) {
 }
 
 document.addEventListener("DOMContentLoaded", fetchAndDisplayCollections);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const sizesHeading = document.querySelector(".color h2.sizesHeading ");
+  const colorList = document.querySelector(".colorList");
+
+  // Hide the colorList initially
+  colorList.style.display = "none";
+
+  sizesHeading.addEventListener("click", function () {
+    // Toggle the display of colorList
+    if (colorList.style.display === "none") {
+      colorList.style.display = "block";
+    } else {
+      colorList.style.display = "none";
+    }
+  });
+});
