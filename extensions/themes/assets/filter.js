@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", async function () {
   try {
     const data = await fetchProductData();
-    populateColorDropdown(data.colors);
     displayProducts(data);
     const defaultSize = "S"; // Change to your default size
     await fetchAndDisplayProducts(defaultSize, null);
+    // populateColorDropdown(data.colors);
   } catch (error) {
     console.error("Error fetching product data:", error);
   }
@@ -26,13 +26,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Error fetching product data:", error);
   }
 });
-
-async function fetchProductData() {
-  const response = await fetch("/apps/proxy/products");
-  return await response.json();
-}
-
-
 
 async function fetchAndDisplayProducts(size, color) {
   const productInfo = document.querySelector(".product-section");
@@ -206,7 +199,6 @@ function updateSelection(element, container, fetchData) {
     }
   } else {
     const selectedElement = container.querySelector(`.${selectedClass}`);
-
     if (selectedElement) {
       selectedElement.classList.remove(selectedClass);
       selectedElement.classList.add(deselectedClass);
@@ -310,7 +302,6 @@ if (clearColorButton) {
     await fetchAndDisplayProducts(size, null);
   });
 }
-
 
 function displayProducts(data) {
   sizesContainer.innerHTML = "";
@@ -452,19 +443,21 @@ function displayCollections(collections) {
 
 document.addEventListener("DOMContentLoaded", fetchAndDisplayCollections);
 
-document.addEventListener("DOMContentLoaded", function () {
-  const sizesHeading = document.querySelector(".color h2.sizesHeading ");
-  const colorList = document.querySelector(".colorList");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const sizesHeading = document.querySelector(".color h2.sizesHeading ");
+//   const colorList = document.querySelector(".colorList");
 
-  // Hide the colorList initially
-  colorList.style.display = "none";
+//   // Hide the colorList initially
+//   colorList.style.display = "none";
 
-  sizesHeading.addEventListener("click", function () {
-    // Toggle the display of colorList
-    if (colorList.style.display === "none") {
-      colorList.style.display = "block";
-    } else {
-      colorList.style.display = "none";
-    }
-  });
-});
+//   sizesHeading.addEventListener("click", function () {
+//     // Toggle the display of colorList
+//     if (colorList.style.display === "none") {
+//       colorList.style.display = "block";
+//     } else {
+//       colorList.style.display = "none";
+//     }
+//   });
+// });
+
+

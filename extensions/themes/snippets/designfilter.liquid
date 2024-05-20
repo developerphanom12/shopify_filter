@@ -2,269 +2,335 @@
 <html lang="en">
   <head>
     <style>
-            .slider {
-              padding: 10px;
-              background-color: #fff;
-              border: 1px solid transparent;
-            }
+      .slider {
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid transparent;
+      }
 
-            /* CSS for selectElement */
-            .selectElement {
-              display: none; /* Initially hide selectElement */
-              margin-top: 10px;
-              padding: 10px;
-              background-color: #fff;
-              border: 1px solid #ccc;
-            }
+      .selectElement {
+        display: none; /* Initially hide selectElement */
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+      }
 
-            /* CSS for selectElement when visible */
-            .selectElement.visible {
-              display: block;
-            }
+      /* CSS for selectElement when visible */
+      .selectElement.visible {
+        display: block;
+      }
 
-            /* CSS for sizeElement */
-            .sizeElement,
-            .colorElement {
-              cursor: pointer;
-              font-family: 'Times New Roman', Times, serif;
-            }
-          .colorElement.selectedColor.deselected{
-          color: #0E1B4DBF;
-          font-weight:400;
+      /* CSS for sizeElement */
+      .sizeElement,
+      .colorElement {
+        cursor: pointer;
+        font-family: 'Times New Roman', Times, serif;
+      }
 
-          }
+      .colorElement.selectedColor.deselected {
+        color: #0e1b4dbf;
+        font-weight: 400;
+      }
 
-            .sizesContainer h2.sizesHeading {
-              font-size: 14px;
-              margin: 5px 0px;
-              font-weight: 600;
-          }
-            /* CSS for productContainer */
+      .sizesContainer h2.sizesHeading {
+        font-size: 14px;
+        margin: 5px 0px;
+        font-weight: 600;
+      }
 
-            .productContainer {
-              position:relative;
-              padding: 10px 5px;
-              background-color: #fff;
-              width: 280px;
-              margin: 5px;
-              border-radius: 10px;
-            }
-            .sizesList {
-              width: 47px;
-              display: grid;
-              gap: 10px;
-              padding:5px 10px 20px;
-            }
+      /* CSS for productContainer */
+      .productContainer {
+        position: relative;
+        padding: 10px 5px;
+        background-color: #fff;
+        width: 280px;
+        margin: 5px;
+        border-radius: 10px;
+      }
 
-            .colorList {
-              display: flex;
-              flex-wrap: wrap;
-              gap: 10px;
-              font-size: 12px;
-              padding:0px 10px ;
-              overflow: hidden;
-            }
+      .sizesList {
+        width: 47px;
+        display: grid;
+        gap: 10px;
+        padding: 5px 10px 20px;
+      }
 
+      .colorList {
+        display: flex;
+        flex-direction: column;
+        height: 120px;
+        gap: 10px;
+        font-size: 12px;
+        padding: 0px 10px;
+        overflow-y: scroll;
+      }
 
-            ul{
-            list-style:none;
-            padding:0px 10px;
-            font-size:14px;
-            margin: 0px;
-            }
+      .collectionList ul {
+        list-style: none;
+        padding: 0px 10px;
+        font-size: 14px;
+        margin: 0px;
+        height: 130px;
+        overflow-y: scroll;
+      }
 
-            /* CSS for grid layout */
-            .container {
-              display: flex;
-              {% comment %} grid-template-columns: 20% 80%; {% endcomment %}
-              gap: 20px;
-              padding: 20px;
-              background-color: #fff;
-              @media (max-width:765px){
-              flex-direction:column;
-              }
+      /* CSS for grid layout */
+      .container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        background-color: #fff;
+      }
 
-            }
+      .sizesContainer {
+        padding: 20px 0px;
+        background-color: #fff;
+        border-radius: 10px;
+        width: 250px;
+        height: 70vh;
+      }
 
-            .sizesContainer {
-              padding: 20px 0px ;
-              background-color: #fff;
-              border-radius: 10px;
-              width: 20%;
-              @media (max-width:765px){
-                width: 100%;
-                }
-            }
-            .sizesContainer h3 {
-              margin: 0px;
-              color: #000;
-              font-size: 17px;
-              padding:10px;
-            }
+      .sizesContainer h3 {
+        margin: 0px;
+        color: #000;
+        font-size: 17px;
+        padding: 10px;
+      }
 
-         .sizesList {
-           display: flex;
-           width: 100%;
-           flex:1;
+      .sizesList {
+        display: flex;
+        width: 100%;
+        flex: 1;
+      }
 
+      .sizeElement {
+        height: 30px;
+        width: 30px;
+      }
+      .product-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 86vw;
+        justify-content: center;
+      }
+
+      .slider.slick-initialized.slick-slider {
+        padding: 0px !important;
+      }
+
+      .product-section img {
+        width: 100%;
+        height: 300px;
+      }
+
+      .productContainer h2,
+      h4 {
+        font-size: 15px;
+        margin: 5px 3px;
+        padding: 0px;
+        color: #000;
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+      .productContainer h4 {
+        font-weight: 400;
+      }
+
+      .productContainer h2 {
+        font-weight: 600;
+        z-index: 2;
+      }
+
+      h2.sizesHeading {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 0px 10px;
+        font-family: 'Times New Roman', Times, serif;
+        color: #3a0000;
+      }
+
+      .colorElement.selectedColor {
+        color: #000;
+        font-weight: 600;
+      }
+
+      /* Thumbnail images design */
+      img.thumbnail.slick-slide {
+        border-radius: 50%;
+        border: 1px solid lightgray;
+        padding: 2px;
+        height: 30px;
+        width: 30px !important;
+        margin: 3px;
+        cursor: pointer;
+      }
+
+      img.slick-slide.slick-current.slick-active {
+        object-fit: cover;
+        width: 270px;
+      }
+
+      .slick-list.draggable {
+        padding: 0px !important;
+      }
+
+      .slick-track {
+        margin: 0 !important;
+        transform: translate3d(0px, 0px, 0px) !important;
+      }
+
+      .sizeElement {
+        border-radius: 5px;
+        text-align: center;
+        background: #1a1a1a;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .sizeElement.selectedSize.selected {
+        background-color: #000;
+        font-weight: 700;
+        color: #ffe1e1;
+      }
+
+      .addToCartButton {
+        font-family: 'poppins', 'sans-serif';
+        line-height: 38px;
+        position: relative;
+        bottom: -330px;
+        z-index: 0;
+        transform: translateY(-10px);
+        background-color: #262626;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 267px;
+        opacity: 0;
+        word-spacing: 1px;
+        letter-spacing: 1px;
+        margin-left: 2px;
+        font-size: 14px;
+        transition: 0.5s ease-in-out;
+        border-top-left-radius: 1px;
+        border-top-right-radius: 1px;
+        font-weight: 600;
+      }
+
+      .addToCartButton:hover {
+        background: #d25b5b;
+      }
+
+      .priceOption:hover {
+        cursor: pointer;
+      }
+
+      li.priceOption.selectedPriceOption {
+        font-weight: 600;
+        color: #000;
+      }
+
+      /* Add CSS to reveal the button on hover */
+      .productContainer:hover .addToCartButton {
+        opacity: 1;
+        transform: translateY(-29px);
+        transition: 0.3s ease;
+        z-index: 1;
+      }
+
+      .selectedOptions {
+        padding: 0px 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #000;
+      }
+
+      .sizes,
+      .colors,
+      .prices {
+        font-size: 13px;
+      }
+
+      ul.priceList {
+        overflow: hidden;
+        font-size: 13px;
+        list-style: none;
+        padding: 0px 10px;
+      }
+
+      button#openDrawer {
+        width: 200px;
+        text-align: start;
+      }
+
+      i.fas.fa-bars {
+        margin-right: 10px;
+      }
+
+      @media (min-width: 913px) {
+        button#openDrawer,
+        button#closeDrawer {
+          display: none;
         }
-        .sizeElement{
-          height: 30px;
-          width: 30px ;
+      }
+
+      @media (max-width: 912px) {
+        .container {
+          flex-direction: column;
+          justify-content: center;
+          align-items:center;
         }
 
-        .product-section {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          width:85%;
-        }
-            .slider.slick-initialized.slick-slider {
-             padding:0px !important;
-            }
-            .product-section img {
-              width: 100%;
-              height: 300px;
-            }
-            .productContainer h2 ,h4 {
-              font-size: 15px;
-              margin: 5px 3px;
-              padding:0px;
-              color: #000;
-              font-family: 'Times New Roman', Times, serif;
-            }
-            .productContainer h4{
-              font-weight: 400;
-            }
-            .productContainer h2{
-             font-weight:"600";
-             z-index:2;
-            }
-            h2.sizesHeading {
-              font-size: 20px;
-              font-weight: 500;
-              padding:0px 10px;
-              font-family: 'Times New Roman', Times, serif;
-              color:#3a0000;
-            }
-
-            .colorElement.selectedColor {
-              color: #000;
-              font-weight:600;
-            }
-
-
-
-            /* thumbnial images design */
-            img.thumbnail.slick-slide {
-              border-radius: 50%;
-              border: 1px solid lightgray;
-              padding: 2px;
-              height: 30px;
-              width: 30px !important;
-              margin: 3px ;
-              cursor:pointer;
-            }
-            img.slick-slide.slick-current.slick-active {
-              object-fit: cover;
-              width:270px;
-              {% comment %} height:300px; {% endcomment %}
-
-            }
-            .slick-list.draggable {
-              padding: 0px !important;
-            }
-            .slick-track {
-              margin: 0 !important;
-              transform: translate3d(0px, 0px, 0px) !important;
-            }
-            .sizeElement {
-              border-radius: 5px;
-              text-align: center;
-              background: #1a1a1a;
-              color: #fff;
-              cursor: pointer;
-            }
-            .sizeElement.selectedSize.selected {
-              background-color: #000;
-              font-weight:700;
-              color:#FFE1E1;
-            }
-
-            .addToCartButton {
-              font-family:"poppins","sans-serif";
-              line-height: 38px;
-              position: relative;
-              bottom: -330px;
-              z-index: 0;
-              transform: translateY(-10px);
-              background-color: #262626;
-              color: white;
-              border: none;
-              cursor: pointer;
-              width: 267px;
-              opacity: 0;
-              word-spacing:1px;
-              letter-spacing:1px;
-              margin-left:2px ;
-              font-size: 14px;
-              transition:  0.5s ease-in-out;
-              border-top-left-radius: 1px;
-              border-top-right-radius: 1px;
-              font-weight:600;
-            }
-            .addToCartButton:hover{
-              background:#d25b5b;
-            }
-
-              .priceOption:hover{
-              cursor:pointer;
-              }
-              li.priceOption.selectedPriceOption {
-                font-weight: 600;
-                color: #000;
-              }
-          {% comment %} // Add CSS to reveal the button on hover {% endcomment %}
-          .productContainer:hover .addToCartButton {
-              opacity: 1;
-              transform: translateY(-29px);
-              transition:  0.3s ease;
-              z-index: 1;
-
-          }
-
-          .selectedOptions {
-            padding: 0px 10px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #000;
+        .sizesContainer {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 70%;
+          height: 128vh;
+          background-color: #fff;
+          z-index: 1000;
+          transition: left 0.3s ease-in-out;
         }
 
-        .sizes, .colors, .prices{
-          font-size: 13px;
+        .sizesContainer.open {
+          left: 0;
+        }
+
+        .toggleButton {
+          display: block;
+          margin: 10px;
+          padding: 10px;
+          background-color: #fff;
+          color: #000;
+          border: 1px solid #000;
+          cursor: pointer;
+        }
+
+        .toggleButton.close {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
       }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link
       rel="stylesheet"
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
     >
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
   </head>
   <body>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-      async
-    ></script>
-
     <div class="container">
-      <div class="sizesContainer">
+      <button class="toggleButton" id="openDrawer"><i class="fas fa-bars"></i>Open Filter</button>
+      <div class="sizesContainer" id="sizesContainer">
+        <button class="toggleButton close" id="closeDrawer">Close</button>
         <h3>Collection Filter App</h3>
-        <div id="collectionList"></div>
-
+        <div id="collectionList" class="collectionList"></div>
         <div class="selectedOptions" id="selectedOptions">
           <div class="colors" id="colors"></div>
           <div class="sizes" id="sizes"></div>
@@ -272,19 +338,17 @@
         </div>
         <h2 class="sizesHeading">Available Sizes</h2>
         <div class="sizesList" id="sizesList"></div>
-
         <div class="color">
-          <h2 class="sizesHeading">Available Colors ^</h2>
+          <h2 class="sizesHeading">Available Colors</h2>
           <div class="colorList" id="colorsList"></div>
         </div>
-
         <div class="priceContainer">
-          <h2 class="sizesHeading">Price ^</h2>
+          <h2 class="sizesHeading">Price</h2>
           <ul class="priceList">
-            <li class="priceOption" data-min="0" data-max="300">Rs.0 - 10</li>
-            <li class="priceOption" data-min="301" data-max="600">Rs.301 - 600</li>
-            <li class="priceOption" data-min="601" data-max="1000">Rs.601 - 1000</li>
-            <li class="priceOption" data-min="1001" data-max="99999">Rs.1001+</li>
+            <li class="priceOption" data-min="0" data-max="300">0 - 10</li>
+            <li class="priceOption" data-min="301" data-max="600">301 - 600</li>
+            <li class="priceOption" data-min="601" data-max="1000">601 - 1000</li>
+            <li class="priceOption" data-min="1001" data-max="99999">1001+</li>
           </ul>
         </div>
       </div>
@@ -292,5 +356,17 @@
         <div class="slider"></div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('openDrawer').addEventListener('click', function () {
+          document.getElementById('sizesContainer').classList.add('open');
+        });
+
+        document.getElementById('closeDrawer').addEventListener('click', function () {
+          document.getElementById('sizesContainer').classList.remove('open');
+        });
+      });
+    </script>
   </body>
 </html>

@@ -3,7 +3,7 @@
 client_id = "cda589aa1d4db0408131cad372bcde7d"
 name = "exampleone"
 handle = "exampleone-2"
-application_url = "https://yields-thrown-partition-bold.trycloudflare.com"
+application_url = "https://gossip-var-sara-shares.trycloudflare.com"
 embedded = true
 
 [build]
@@ -17,13 +17,18 @@ scopes = "read_product_listings,read_products,write_products"
 
 [auth]
 redirect_urls = [
-  "https://yields-thrown-partition-bold.trycloudflare.com/auth/callback",
-  "https://yields-thrown-partition-bold.trycloudflare.com/auth/shopify/callback",
-  "https://yields-thrown-partition-bold.trycloudflare.com/api/auth/callback"
+  "https://gossip-var-sara-shares.trycloudflare.com/auth/callback",
+  "https://gossip-var-sara-shares.trycloudflare.com/auth/shopify/callback",
+  "https://gossip-var-sara-shares.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
 api_version = "2024-04"
+
+[app_proxy]
+url = "https://gossip-var-sara-shares.trycloudflare.com"
+subpath = "proxies"
+prefix = "apps"
 
 [pos]
 embedded = false
